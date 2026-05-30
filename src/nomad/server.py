@@ -7,6 +7,8 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from nomad.yolo import YoloAnnotatorSingleton
+from nomad.tts import TTSServiceSingleton
+from nomad.listen import ListenerServiceSingleton, WAKE_WORD
 
 # ── Set your phone's stream URL here ─────────────────────────────────────────
 # IP Webcam (Android): "http://192.168.x.x:8080/video"
@@ -18,6 +20,11 @@ PHONE_STREAM_URL = "http://132.207.213.38:4747/video"
 _stream_lock = threading.Lock()
 _stream_url: str | None = None
 _cap: cv2.VideoCapture | None = None
+
+
+def _on_transcript(text: str) -> None:
+    if WAKE_WORD in text.lower():
+        print("Asking Gemini...")
 
 
 def _release_cap() -> None:
@@ -41,12 +48,18 @@ def _open_stream(url: str) -> None:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Load all services once at startup
+    YoloAnnotatorSingleton()
+    TTSServiceSingleton()
+    ListenerServiceSingleton().start(_on_transcript)
+
     if PHONE_STREAM_URL:
         try:
             _open_stream(PHONE_STREAM_URL)
         except ValueError as e:
             print(f"Warning: {e}")
     yield
+    ListenerServiceSingleton().stop()
     with _stream_lock:
         _release_cap()
 
@@ -60,7 +73,6 @@ class StreamConfig(BaseModel):
 
 @app.post("/stream/start")
 def start_stream(config: StreamConfig) -> dict:
-    """Override the stream URL at runtime."""
     with _stream_lock:
         _release_cap()
         try:
@@ -123,8 +135,7 @@ def _yolo_frames():
         if not ret:
             break
         frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-        yolo = YoloAnnotatorSingleton()
-        annotated = yolo.annotate(frame)
+        annotated = YoloAnnotatorSingleton().annotate(frame)
         _, buf = cv2.imencode(".jpg", annotated)
         yield (
             b"--frame\r\n"
