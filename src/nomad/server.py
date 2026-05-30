@@ -6,6 +6,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+from nomad.yolo import YOLODetector
+
 # ── Set your phone's stream URL here ─────────────────────────────────────────
 # IP Webcam (Android): "http://192.168.x.x:8080/video"
 # EpochCam / DroidCam: "http://192.168.x.x:4747/video"
@@ -107,6 +109,36 @@ def preview_stream():
         raise HTTPException(status_code=404, detail="No active stream.")
     return StreamingResponse(
         _mjpeg_frames(),
+        media_type="multipart/x-mixed-replace; boundary=frame",
+    )
+
+
+def _yolo_frames():
+    while True:
+        with _stream_lock:
+            cap = _cap
+        if cap is None:
+            break
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+        annotated = YOLODetector().annotate(frame)
+        _, buf = cv2.imencode(".jpg", annotated)
+        yield (
+            b"--frame\r\n"
+            b"Content-Type: image/jpeg\r\n\r\n"
+            + buf.tobytes()
+            + b"\r\n"
+        )
+
+
+@app.get("/stream/yolo")
+def yolo_stream():
+    if _cap is None:
+        raise HTTPException(status_code=404, detail="No active stream.")
+    return StreamingResponse(
+        _yolo_frames(),
         media_type="multipart/x-mixed-replace; boundary=frame",
     )
 

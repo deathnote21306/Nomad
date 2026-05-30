@@ -6,6 +6,7 @@ dependencies = [
     "fastapi>=0.136.3",
     "opencv-python>=4.13.0.92",
     "python-dotenv>=1.2.2",
+    "ultralytics>=8.4.57",
     "uvicorn[standard]>=0.48.0",
 ]
 
