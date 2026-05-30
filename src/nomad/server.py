@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-from nomad.yolo import YOLODetector
+from nomad.yolo import YoloAnnotatorSingleton
 
 # ── Set your phone's stream URL here ─────────────────────────────────────────
 # IP Webcam (Android): "http://192.168.x.x:8080/video"
@@ -123,7 +123,8 @@ def _yolo_frames():
         if not ret:
             break
         frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-        annotated = YOLODetector().annotate(frame)
+        yolo = YoloAnnotatorSingleton()
+        annotated = yolo.annotate(frame)
         _, buf = cv2.imencode(".jpg", annotated)
         yield (
             b"--frame\r\n"
