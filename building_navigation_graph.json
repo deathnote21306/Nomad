@@ -1,0 +1,253 @@
+{
+  "building": {
+    "name": "McConnell Engineering Building",
+    "floor": "14",
+    "source_image": "floor_14.png",
+    "notes": [
+      "Main research floor",
+      "Renovated 2023 — west wing has new corridor layout"
+    ],
+    "coordinate_system": {
+      "type": "normalized_image_coordinates",
+      "x_range": [0, 1],
+      "y_range": [0, 1],
+      "origin": "top_left"
+    }
+  },
+  "nodes": [
+    {
+      "id": "room_m_1410",
+      "type": "room",
+      "name": "M-1410",
+      "x": 0.12,
+      "y": 0.22,
+      "floor": "14",
+      "notes": "Professor office — north-west corner",
+      "visual_landmarks": ["blue door", "name plate"],
+      "confidence": 1.0
+    },
+    {
+      "id": "door_m_1410_door",
+      "type": "door",
+      "name": "M-1410 Door",
+      "x": 0.19,
+      "y": 0.28,
+      "floor": "14",
+      "notes": "",
+      "visual_landmarks": ["blue door frame"],
+      "confidence": 1.0
+    },
+    {
+      "id": "hallway_north_corridor",
+      "type": "hallway",
+      "name": "North Corridor",
+      "x": 0.35,
+      "y": 0.28,
+      "floor": "14",
+      "notes": "Main east-west corridor",
+      "visual_landmarks": ["overhead lights", "grey tile floor"],
+      "confidence": 1.0
+    },
+    {
+      "id": "intersection_central",
+      "type": "intersection",
+      "name": "Central Junction",
+      "x": 0.50,
+      "y": 0.50,
+      "floor": "14",
+      "notes": "T-junction — main hallway meets south corridor",
+      "visual_landmarks": ["fire extinguisher", "bulletin board"],
+      "confidence": 1.0
+    },
+    {
+      "id": "room_lab_1450",
+      "type": "room",
+      "name": "Lab-1450",
+      "x": 0.72,
+      "y": 0.22,
+      "floor": "14",
+      "notes": "Robotics lab",
+      "visual_landmarks": ["glass door", "safety sign"],
+      "confidence": 1.0
+    },
+    {
+      "id": "door_lab_1450_door",
+      "type": "door",
+      "name": "Lab-1450 Door",
+      "x": 0.66,
+      "y": 0.28,
+      "floor": "14",
+      "notes": "",
+      "visual_landmarks": ["glass panel door"],
+      "confidence": 1.0
+    },
+    {
+      "id": "elevator_main",
+      "type": "elevator",
+      "name": "Main Elevator",
+      "x": 0.50,
+      "y": 0.78,
+      "floor": "14",
+      "notes": "South end of floor",
+      "visual_landmarks": ["elevator doors", "floor indicator display"],
+      "confidence": 1.0
+    },
+    {
+      "id": "stairs_west_stairwell",
+      "type": "stairs",
+      "name": "West Stairwell",
+      "x": 0.08,
+      "y": 0.72,
+      "floor": "14",
+      "notes": "",
+      "visual_landmarks": ["stairwell door", "emergency sign"],
+      "confidence": 1.0
+    },
+    {
+      "id": "exit_main_exit",
+      "type": "exit",
+      "name": "Main Exit",
+      "x": 0.50,
+      "y": 0.95,
+      "floor": "14",
+      "notes": "South-facing exit to stairwell lobby",
+      "visual_landmarks": ["green exit sign", "push bar door"],
+      "confidence": 1.0
+    },
+    {
+      "id": "washroom_14_wc",
+      "type": "washroom",
+      "name": "14th Floor WC",
+      "x": 0.85,
+      "y": 0.72,
+      "floor": "14",
+      "notes": "",
+      "visual_landmarks": ["restroom sign", "yellow tile floor"],
+      "confidence": 1.0
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_room_m_1410_to_door_m_1410_door",
+      "from": "room_m_1410",
+      "to": "door_m_1410_door",
+      "type": "doorway_connection",
+      "direction": { "cardinal": "southeast", "relative": "forward-right", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.090 },
+      "instruction": "Exit M-1410 through M-1410 Door.",
+      "expected_visual_landmarks": ["blue door frame"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_door_m_1410_door_to_hallway_north_corridor",
+      "from": "door_m_1410_door",
+      "to": "hallway_north_corridor",
+      "type": "hallway_segment",
+      "direction": { "cardinal": "east", "relative": "ahead", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.161 },
+      "instruction": "Enter North Corridor.",
+      "expected_visual_landmarks": ["overhead lights", "grey tile floor"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_hallway_north_corridor_to_intersection_central",
+      "from": "hallway_north_corridor",
+      "to": "intersection_central",
+      "type": "hallway_segment",
+      "direction": { "cardinal": "southeast", "relative": "forward-right", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.246 },
+      "instruction": "Continue toward Central Junction.",
+      "expected_visual_landmarks": ["fire extinguisher", "bulletin board"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_hallway_north_corridor_to_door_lab_1450_door",
+      "from": "hallway_north_corridor",
+      "to": "door_lab_1450_door",
+      "type": "hallway_segment",
+      "direction": { "cardinal": "east", "relative": "ahead", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.316 },
+      "instruction": "Proceed to Lab-1450 Door.",
+      "expected_visual_landmarks": ["glass panel door"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_door_lab_1450_door_to_room_lab_1450",
+      "from": "door_lab_1450_door",
+      "to": "room_lab_1450",
+      "type": "doorway_connection",
+      "direction": { "cardinal": "northeast", "relative": "forward-left", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.090 },
+      "instruction": "Enter Lab-1450.",
+      "expected_visual_landmarks": ["glass door", "safety sign"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_intersection_central_to_elevator_main",
+      "from": "intersection_central",
+      "to": "elevator_main",
+      "type": "walkable_connection",
+      "direction": { "cardinal": "south", "relative": "ahead", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.280 },
+      "instruction": "Use the elevator to continue to Main Elevator.",
+      "expected_visual_landmarks": ["elevator doors", "floor indicator display"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_intersection_central_to_stairs_west_stairwell",
+      "from": "intersection_central",
+      "to": "stairs_west_stairwell",
+      "type": "stairs_connection",
+      "direction": { "cardinal": "southwest", "relative": "forward-left", "confidence": 0.8 },
+      "distance": { "category": "medium", "relative_distance": 0.590 },
+      "instruction": "Use the stairs to continue to West Stairwell.",
+      "expected_visual_landmarks": ["stairwell door", "emergency sign"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_elevator_main_to_exit_main_exit",
+      "from": "elevator_main",
+      "to": "exit_main_exit",
+      "type": "exit_connection",
+      "direction": { "cardinal": "south", "relative": "ahead", "confidence": 0.8 },
+      "distance": { "category": "short", "relative_distance": 0.170 },
+      "instruction": "Proceed to Main Exit to exit the building.",
+      "expected_visual_landmarks": ["green exit sign", "push bar door"],
+      "bidirectional": false,
+      "confidence": 1.0,
+      "notes": ""
+    },
+    {
+      "id": "edge_intersection_central_to_washroom_14_wc",
+      "from": "intersection_central",
+      "to": "washroom_14_wc",
+      "type": "walkable_connection",
+      "direction": { "cardinal": "southeast", "relative": "forward-right", "confidence": 0.8 },
+      "distance": { "category": "medium", "relative_distance": 0.390 },
+      "instruction": "Continue to 14th Floor WC.",
+      "expected_visual_landmarks": ["restroom sign", "yellow tile floor"],
+      "bidirectional": true,
+      "confidence": 1.0,
+      "notes": ""
+    }
+  ],
+  "metadata": {
+    "created_at": "2026-05-30T00:00:00.000Z",
+    "updated_at": "2026-05-30T00:00:00.000Z",
+    "version": "0.1"
+  }
+}

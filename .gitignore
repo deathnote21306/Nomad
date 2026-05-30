@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Vite cache
+.vite/
+
+# Editor
+.DS_Store
+*.local
+
+# Env files
+.env
+.env.*
+!.env.example
