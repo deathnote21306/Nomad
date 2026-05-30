@@ -10,3 +10,5 @@ nomad.egg-info/
 models/
 
 .env
+
+assets
