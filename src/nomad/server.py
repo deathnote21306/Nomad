@@ -91,7 +91,7 @@ def _mjpeg_frames():
         ret, frame = cap.read()
         if not ret:
             break
-        frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+        frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
         _, buf = cv2.imencode(".jpg", frame)
         yield (
             b"--frame\r\n"
@@ -119,15 +119,6 @@ def snapshot():
         ret, frame = _cap.read()
     if not ret:
         raise HTTPException(status_code=503, detail="Failed to read frame.")
-    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
     _, buf = cv2.imencode(".jpg", frame)
     return StreamingResponse(iter([buf.tobytes()]), media_type="image/jpeg")
-
-
-def main():
-    import uvicorn
-    uvicorn.run("nomad.main:app", host="0.0.0.0", port=8000, reload=True)
-
-
-if __name__ == "__main__":
-    main()

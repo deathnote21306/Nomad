@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-nomad = "nomad.main:main"
+nomad = "nomad.server:app"
 
 [tool.uv]
 package = true
