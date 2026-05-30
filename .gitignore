@@ -5,3 +5,8 @@ nomad.egg-info/
 
 # model weights — downloaded automatically by ultralytics on first run
 *.pt
+
+# vosk model folder
+models/
+
+.env

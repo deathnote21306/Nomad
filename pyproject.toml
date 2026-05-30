@@ -3,15 +3,19 @@ name = "nomad"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
+    "elevenlabs>=2.50.0",
     "fastapi>=0.136.3",
     "opencv-python>=4.13.0.92",
+    "pyaudio>=0.2.14",
     "python-dotenv>=1.2.2",
     "ultralytics>=8.4.57",
     "uvicorn[standard]>=0.48.0",
+    "vosk==0.3.43",
 ]
 
 [project.scripts]
 nomad = "nomad.server:app"
+nomad-listen = "nomad.listen:listen"
 
 [tool.uv]
 package = true
