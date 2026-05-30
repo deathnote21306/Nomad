@@ -2,3 +2,6 @@
 
 __pycache__/
 nomad.egg-info/
+
+# model weights — downloaded automatically by ultralytics on first run
+*.pt
