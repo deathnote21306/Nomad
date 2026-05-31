@@ -383,6 +383,12 @@ wheels = [
 ]
 
 [[package]]
+name = "geomag"
+version = "0.9.2015"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0d/1f/95b5d9db29b89735af88713e7fb49b20052d1ce5a05e8e4ea0f2f96da4b3/geomag-0.9.2015.zip", hash = "sha256:fa3f7544beca2dd706c3078d9d58cb35734d00de2591270a335216bb8ba310d5", size = 8071, upload-time = "2014-12-18T01:15:53.201Z" }
+
+[[package]]
 name = "google-auth"
 version = "2.53.0"
 source = { registry = "https://pypi.org/simple" }
@@ -627,6 +633,7 @@ source = { editable = "." }
 dependencies = [
     { name = "elevenlabs" },
     { name = "fastapi" },
+    { name = "geomag" },
     { name = "google-genai" },
     { name = "opencv-python" },
     { name = "pyaudio" },
@@ -640,6 +647,7 @@ dependencies = [
 requires-dist = [
     { name = "elevenlabs", specifier = ">=2.50.0" },
     { name = "fastapi", specifier = ">=0.136.3" },
+    { name = "geomag", specifier = ">=0.9.2015" },
     { name = "google-genai", specifier = ">=2.7.0" },
     { name = "opencv-python", specifier = ">=4.13.0.92" },
     { name = "pyaudio", specifier = ">=0.2.14" },
